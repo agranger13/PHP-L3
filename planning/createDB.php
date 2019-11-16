@@ -6,6 +6,9 @@ try{
     var_dump($manager);
         
     $annees = array('2018','2019','2020');
+    $users = array(array("name"=>"Jean","userId"=>1),
+    array("name"=>"Michel","userId"=>2),
+    array("name"=>"Patrick","userId"=>3));
 
     foreach($annees as &$annee){
         $date =  date("Y-m-d", strtotime("mon jan".$annee));
@@ -29,7 +32,7 @@ try{
             // echo "<br>";
             $document_date = array("date"=>date('d/m/Y',strtotime($date)),
                                     "annee"=>date('Y',strtotime($date)),
-                                    "userId"=>1);
+                                    "userId"=>rand(1,count($users)));
 
             $single_insert = new MongoDB\Driver\BulkWrite();
             $single_insert->insert($document_date);
@@ -39,10 +42,6 @@ try{
             echo "Création d un objet users OK";
         }
     }
-
-    $users = array(array("name"=>"Jean","userId"=>1),
-    array("name"=>"Michel","userId"=>2),
-    array("name"=>"Patrick","userId"=>3));
 
     foreach($users as &$user){
         $single_insert = new MongoDB\Driver\BulkWrite();

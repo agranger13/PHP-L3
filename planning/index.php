@@ -9,9 +9,10 @@
     // echo "Collection 'affectation' created succsessfully";
 
     $annee = "2018";
-    
+
+
     if(!empty($_POST['action'])){
-        if($_POST['action']=="Changer" && !empty($_POST['annee'])){
+        if(!empty($_POST['annee'])){
             $annee = $_POST['annee'];
         }
 
@@ -29,6 +30,7 @@
     
                 if($_POST['affect'.$i] != $actifUser[0]->userId){
                     $bulk = new MongoDB\Driver\BulkWrite;
+                    echo $affect->date."    ";
                     $bulk->update(
                         ['date' => $affect->date],
                         ['$set' => ['userId' => (int)$_POST['affect'.$i]]],
@@ -51,15 +53,21 @@
     $query = new MongoDB\Driver\Query([]);
     $users = $manager->executeQuery('planning.users',$query);
     $users = $users->toArray();
+
+    $stat = array();
+    foreach($users as $u){
+        $stat += [ $u->name => 0];
+    }
 ?>
 
     <head>
         <meta charset="UTF-8">
         <title> Planning </title>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     </head>
     <body>
-        <h1> Planning </h1>
-        <form action='' method="post">
+        <h1 class="text-center"> Planning des corvées  <?php echo $annee ?>  </h1>
+        <form action='' method="post" class="text-center">
             <label>Année : </label>
             <select name="annee" autocomplete='off'>
                 <option value="2018" <?php 
@@ -76,9 +84,9 @@
                     } ?>>2020</option>
             </select>
 
-            <button type="submit" value="Changer" name="action"> Changer l'année </button>
+            <button type="submit" class="btn btn-primary" value="Changer" name="action"> Changer l'année </button>
 
-            <table border="1">
+            <table class="table table-striped">
                 <?php
                 
                     foreach($affectation as $i=>$affect){
@@ -99,6 +107,7 @@
                                 echo "<option value=".$user->userId." >".$user->name."</option>";
                             }else {
                                 echo "<option value=".$actifUser[0]->userId." selected='select'>".$actifUser[0]->name."</option>";
+                                $stat[$actifUser[0]->name] ++;
                             }                  
                         }
 
@@ -112,8 +121,16 @@
                     }
                 ?>
             </table>
-            <button type="submit" value="valider" name="action"> Valider le planning </button>
+            <button type="submit" class="btn btn-primary" value="valider" name="action"> Valider le planning </button>
         </form>
-    </body>
 
+        <h3 class="text-center" >Statistiques des attributions des corvées en <?php echo $annee ?> </h3>
+        <?php
+            asort($stat);
+            foreach($stat as $user=>$count){
+                echo "<p class='ml-2'>".$user." : ".$count."</p>";
+            }
+        ?>
+    </body>
 </html>
+
