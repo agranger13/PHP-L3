@@ -1,0 +1,14 @@
+DEBUG     Checking PHPLS_ALLOW_XDEBUG
+DEBUG     The xdebug extension is not loaded
+
+[Info  - 18:52:38] 3 files total
+[Info  - 18:52:38] Indexing project for definitions and static references
+Parsing file:///var/www/PHP-L3/planning/createDB.php
+Parsing file:///var/www/PHP-L3/planning/index.php
+Parsing file:///var/www/PHP-L3/planning/indx.php
+[Info  - 18:52:38] Indexing project for dynamic references
+Parsing file:///var/www/PHP-L3/planning/createDB.php
+Parsing file:///var/www/PHP-L3/planning/index.php
+Parsing file:///var/www/PHP-L3/planning/indx.php
+[Info  - 18:52:38] 0 Packages
+[Info  - 18:52:38] All 3 PHP files parsed in 0 seconds. 170 MiB allocated.

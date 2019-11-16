@@ -1,0 +1,9 @@
+[Info  - 18:52:40] Initialising intelephense 1.2.3
+[Info  - 18:52:40] Initialised in 7 ms
+[Info  - 18:52:40] Indexing started.
+[Info  - 18:52:42] Indexing ended. 102 files indexed in 1s.
+[Info  - 18:52:42] Writing state to /var/www/PHP-L3/planning/~/.vscode-root/User/workspaceStorage/90994e43821f5fbfd93d120b8f435f02/bmewburn.vscode-intelephense-client/42de2435.
+[Info  - 18:52:42] Wrote state in 0.2s.
+[Warn  - 18:52:53] Error: ENOENT: no such file or directory, open '/var/www/PHP-L3/planning/index.php'
+[Info  - 18:52:54] Indexing started.
+[Info  - 18:52:54] Indexing ended. 1 files indexed in 0s.
