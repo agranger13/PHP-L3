@@ -11,14 +11,18 @@ form {
 }
 
 input[type="checkbox"]{
-    visibility: hidden;
     position: absolute;
     height: 100%;
     width: 100%;
     margin: -.75rem -1.25rem;
+    opacity: 0;
 }
 
 #modifyCollect button{
     margin-bottom: 10px;
     margin-right: 5px;
+}
+
+#createCollect{
+    margin-bottom: 10px;
 }

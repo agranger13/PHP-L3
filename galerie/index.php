@@ -1,13 +1,48 @@
 <?php
-    $manager = new MongoDB\Driver\Manager("mongodb://localhost:27017");
     $images = scandir ("Images");
 
-    $query = new MongoDB\Driver\Query([]);
-    $albums = $manager->executeQuery('galerie.albums',$query);
-    $albums = $albums->toArray();
-
+    $fileGal = fopen('galerie.json', 'r');
+    $albums = fread($fileGal, filesize('galerie.json'));
+    fclose($fileGal);
+    $albums = json_decode($albums,true);
+    // echo '<pre>' , var_dump($albums) , '</pre>';
 ?>
 
+<?php
+    if(!empty($_POST['action'])){
+         
+        if($_POST['action'] == 'AddToCollect'){
+            print_r($_POST['image']);
+        }
+        else if($_POST['action'] == 'CreateCollect'){
+            if(strlen($_POST['nameCollect'])>0){
+                print_r($_POST['nameCollect']);
+
+                $images = (!empty($_POST['image']) ? $_POST['image'] : array());
+                $new = array("name" => $_POST['nameCollect'], "images"=> $images );
+                array_push($albums,$new);
+
+                $fileGal = fopen('galerie.json', 'w');
+                fwrite($fileGal, json_encode($albums));
+                fclose($fileGal);
+            }
+        }
+        else if($_POST['action'] == 'deleteCollect'){
+            if(!empty($_POST['album']) && $_POST['album'] != 'all'){
+                foreach($albums as $alb){
+                    if($alb["name"] == $_POST['album']){
+
+                        array_splice($albums, array_search($alb, $albums),1);
+
+                        $fileGal = fopen('galerie.json', 'w');
+                        fwrite($fileGal, json_encode($albums));
+                        fclose($fileGal);
+                    }
+                }
+            }
+        }
+    }
+?>
 <html>
     <head>
         <meta charset="UTF-8">
@@ -51,8 +86,8 @@
                                     echo "</a>";
                                     foreach($albums as $alb){
                                         echo "<a href='#' onclick='selectGalerie(this)' class='list-group-item list-group-item-action'>";
-                                        echo "<input type='checkbox' name='album' value='".$alb."'>";
-                                        echo $alb;
+                                        echo "<input type='checkbox' name='album' value='".$alb['name']."'>";
+                                        echo $alb['name'];
                                         echo "</a>";
                                     }
                                     
@@ -68,8 +103,12 @@
                     </div>
 
                     <div class="row justify-content-center"  id="createCollect">
-                        <input type="text" name="nameCollect" class="col-8" placeholder="Nom de la Collection">
+                        <input type="text" name="nameCollect" class="col-8" placeholder="Nom de votre album">
                         <button type="submit" name="action" value="CreateCollect" class="col-3 btn btn-light">Creer</button>
+                    </div>
+
+                    <div class="row justify-content-center"  id="deleteCollect">
+                        <button type="submit" name="action" value="deleteCollect" class="col-5 btn btn-light">Supprimer l'album selectionné</button>
                     </div>
                 </form>
 
@@ -99,7 +138,6 @@
                             g.childNodes[0].checked = false;
                             g.classList.remove('active');
                         }
-                            
                     }
                 }else{
                     elem.childNodes[0].checked = true;
