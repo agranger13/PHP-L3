@@ -1,5 +1,19 @@
+body{
+    background-color: #c9dce8;
+}
+
+.title{
+    height: 10%;
+    line-height: 100px;
+    font-size: 50px;
+}
+
+.content{
+    height: 80%;
+}
+
 .list-group{
-    height: 300px;
+    height: 450px;
 }
 
 form {
@@ -25,4 +39,9 @@ input[type="checkbox"]{
 
 #createCollect{
     margin-bottom: 10px;
+}
+
+img{
+    margin: 0 auto;
+    max-width: 60vw;
 }
