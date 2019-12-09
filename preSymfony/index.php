@@ -15,7 +15,6 @@
     require_once('Model/Connection.php');
     require_once("Model/User.php");
     require_once("Model/UserManager.php");
-    require_once("View/default.php");
 
     $pdoBuilder = new Connection();
     $db = $pdoBuilder->getDb();

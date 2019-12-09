@@ -2,7 +2,6 @@
 <section id="main-section">
     <?php
         if(isset($page)) {
-            echo $page;
             if($page == 'home')
                 require("./View/home.php");
             else{

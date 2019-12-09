@@ -53,11 +53,15 @@
         }
 
         public function findByEmail($email){
-            $req = $this->db->prepare('SELECT * 
+            $req = $this->db->prepare("SELECT * 
             FROM users 
-            WHERE email = :email');
+            WHERE email = ':email'");
+
             $req->execute(array("email"=>$email));
-            return $req->fecth();
+
+            $result =  $req->fetch();
+
+            return $result;
         }
     }
 ?>

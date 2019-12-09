@@ -18,7 +18,7 @@
     </header>
     <hr />
     <section id="main-section">
-        <form action="index.php" method="POST"><label>Mail :</label><br /><input type="email" name="email"
+        <form action="" method="POST"><label>Mail :</label><br /><input type="email" name="email"
                 placeholder="Mail.." /><br><label>Mot de passe :</label><br /><input type="password" name="password"
                 placeholder="Mot de passe.." /><br><label>Nom :</label><br /><input type="text" name="lastName"
                 placeholder="Nom.." /><br><label>Prénom :</label><br /><input type="text" name="firstName"
@@ -33,8 +33,12 @@
 </html>
 
 <?php
+    require_once('../Model/Connection.php');
+    require_once("../Model/User.php");
+    require_once("../Model/UserManager.php");
     $connection = new Connection;
     $userManage = new UserManager($connection->getDb()); 
+
     if(!empty($_POST['email']) && !empty($_POST['password'])){
 
         $user = new User;
@@ -45,7 +49,6 @@
         "address"=>$_POST['address'],
         "postalCode"=>$_POST['postalCode'],
         "city"=>$_POST['city']));
-
         $userManage->create($user);
     }
 

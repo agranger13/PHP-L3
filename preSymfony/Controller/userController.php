@@ -10,10 +10,24 @@ class userController {
         $this->db = $db1 ;
     }
 
+    public function display(){
+        $page = 'home';
+        require('./View/default.php');
+    } 
+
     public function login() {
             $page = 'login';
             require('./View/default.php');
     }
+    public function usersList() {
+        $page = 'usersList';
+        require('./View/default.php');
+    }
+    public function create() {
+        $page = 'createAccount';
+        require('./View/default.php');
+    }
+
     public function doLogin() {
         $this->user = new User();
         // Cette action teste l'existence d'un utilisateur de email $_POST['email'] et de password $_POST['password']
@@ -30,16 +44,19 @@ class userController {
         
         require('./View/main.php');
     }
+
     public function doCreate(){
+        
         if (isset($_POST['email']) &&
         isset($_POST['password']) &&
-        isset($_POST['lastName']) &&
         isset($_POST['firstName']) &&
+        isset($_POST['lastName']) &&
         isset($_POST['address']) &&
         isset($_POST['postalCode']) &&
         isset($_POST['city'])) {
             $alreadyExist = $this->userManager->findByEmail($_POST['email']);
             if (!$alreadyExist) {
+                echo "not exist";
                 $newUser = new User($_POST);
                 $this->userManager->create($newUser);
                 $page = 'login';

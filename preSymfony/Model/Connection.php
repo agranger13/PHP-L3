@@ -9,8 +9,8 @@ class Connection {
     public function __construct() {
         $this->host = 'localhost';
         $this->dbname = 'preSymfony';
-        $this->username = 'phpuser';
-        $this->password = 'azerty';
+        $this->username = 'admin';
+        $this->password = 'admin';
         try{
             $this->db = new PDO('mysql:host=' . $this->host . ';dbname=' . $this->dbname . ';charset=utf8', $this->username, $this->password);
         }catch(PDOException $e){
