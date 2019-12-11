@@ -20,6 +20,9 @@
                         foreach($_POST['image'] as $img){
                             array_push($albums[$i]['images'],$img);
                         }
+
+                        $albums[$i]['modified'] = date('Y-m-d H:i:s',strtotime("now"));
+
                         $fileGal = fopen('galerie.json', 'w');
                         fwrite($fileGal, json_encode($albums));
                         fclose($fileGal);
@@ -41,6 +44,13 @@
                                 array_splice($albums[$i]['images'],$j,1);
                             }
                         }
+
+                        $albums[$i]['modified'] = date('Y-m-d H:i:s',strtotime("now"));
+
+                        $fileGal = fopen('galerie.json', 'w');
+                        fwrite($fileGal, json_encode($albums));
+                        fclose($fileGal);
+
                         break;
                     }
                 }
@@ -48,8 +58,10 @@
         }
         else if($_POST['action'] == 'CreateCollect'){
             if(strlen($_POST['nameCollect'])>0){
+                $date = date('Y-m-d H:i:s',strtotime("now"));
+
                 $imagesCollect = (!empty($_POST['image']) ? $_POST['image'] : array());
-                $new = array("name" => $_POST['nameCollect'], "images"=> $imagesCollect );
+                $new = array("name" => $_POST['nameCollect'], "images"=> $imagesCollect, "created" => $date, "modified" => $date );
                 array_push($albums,$new);
 
                 $fileGal = fopen('galerie.json', 'w');
@@ -84,7 +96,7 @@
         
     </head>
     <body>
-        <div class="container-fluid">
+        <div id="container" class="container-fluid">
             <h1 class="text-center title align-middle"> Ma galerie </h1>
             <div class="row content">
 
@@ -145,7 +157,7 @@
                 </form>
 
                 <!-- Defilement images -->
-                <div class="col mt-auto mb-auto">
+                <div id="col-carousel" class="col mt-auto mb-auto">
                     <?php
                         echo '<div id="carousel_Toutelesimages" class="carousel slide" data-ride="carousel" style="display:none;">
                         <div class="carousel-inner">';
@@ -202,6 +214,8 @@
                     ?>
                 </div>
             </div>
+            <div id="infos">
+            </div>
         </div>
 
         <script>
@@ -239,9 +253,39 @@
                     }
                     linkedImg(elem);
                     showCarousel(elem);
+                    informationsGalerie(elem);
                 }else{
                     elem.childNodes[0].checked = true;
                 }
+            }
+
+            function informationsGalerie(elem){
+                var list_alb = <?php echo json_encode($albums); ?>;
+                
+                if(elem != document.getElementById("allCollect")){
+                    for(var alb of list_alb){
+                        if(alb['name'] == elem.childNodes[1].textContent){
+
+                            divInfo = document.getElementById("infos");
+                            if(divInfo.childNodes.length > 0){
+                                divInfo.innerHTML = '';
+                            }
+
+                            infoCrea = document.createTextNode("Créé le : " + alb["created"]);
+                            infoModif = document.createTextNode(" Modifié le : " + alb["modified"]);
+                            divInfo.appendChild(infoCrea);
+                            divInfo.appendChild(infoModif);
+                            break;
+                        }
+                        
+                    }
+                }else {
+                    divInfo = document.getElementById("infos");
+                    if(divInfo.childNodes.length > 0){
+                        divInfo.innerHTML = '';
+                    }
+                }
+
             }
 
             function showCarousel(elem){
@@ -251,22 +295,16 @@
                 carousel = document.getElementById("carousel_"+nameGal);
                 carousel.style.display = "block";
 
-                console.log("carousel show");
-
                 if(nameGal != "Toutelesimages"){
                     carousel = document.getElementById("carousel_Toutelesimages");
                     carousel.style.display = "none";
                 }
 
                 for(var alb of list_alb){
-                     console.log("name : " + alb.name);
                     if(elem.textContent != alb.name){
-                        console.log("ifff");
                         nameGal =  alb.name.replace(/ /g,"");
                         carousel = document.getElementById("carousel_"+nameGal);
                         carousel.style.display = "none";
-
-                        
                     }
                 }
             }

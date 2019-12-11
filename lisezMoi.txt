@@ -1,0 +1,37 @@
+Planning : 
+Aller sur /createDB.php pour initialiser la bdd MongoDB.
+Fonctionnalités finalisées:
+    - attribution de tâches à une personne pour chaque semaine d'une année
+    - possibilité de changer l'année
+    - statistiques des tâches attribuées pour chaque personne
+    - ajouter ou supprimer une personne se fait sur MongoDB et n'affecte pas le programme
+
+Scénario :
+    Un utilisateur souhaite affecter ses employés sur l'année 2020, il sélectionne 2020 dans la combo-box puis valide sur le bouton à côté.
+    Il affecte chacun de ses employés à chacune des semaines de 2020 puis valide son choix en cliquant sur le bouton en dessous.
+    Sous ce bouton il peut consulter un récapitulatif des affectations pour 2020
+
+Galerie :
+Sauvegarde des galeries faîtes dans un fichier json "galerie.json" réctualisé à chaque action
+Fonctionnalités attednues finalisées :
+    - Affichage de toutes les images du dossier "Images"
+    - Affichage des galeries enregistrées dans "galerie.json"
+    - Formulaire de création d'une galerie
+    - Affichage des images liées à une galerie
+    - Supression et ajout d'une image dans une galerie
+    - Supression d'un album
+    
+Fonctionnalités persos :
+    - Sélection d'une image et d'un album
+    - Effet visuels et carousels 
+
+Scénarios : 
+    Un utilisateur souhaite créer sa galerie "vacance noel", il rentre ce nom dans l'input du dessous puis clic sur le bouton Creer.
+    Il sélectionne une ou plusieurs de ses images en cliquant dessus (elle(s) deviennent bleus) puis sur sa galerie "vacance noel", enfin il clic sur le bouton
+    Ajoute. Les images sont ensuite ajoutés à sa galerie et lorsqu'il clic sur sa galerie, les images s'affichent dans le diaporama à droite.
+
+    Un utilisateur souhaite supprimer une photo de son album. Il clic sur l'album et remarque que des photos sont grisés car appartenant à la galerie.
+    Ainsi il sélectionne un image grisé et clic sur Retirer. Les images sont retirés de la galerie.
+
+    Un utilisateur souhaite supprimer une galerie, il sélectionne la galerie puis clic sur Supprimer l'album sélectionné. La galerie est effacée.
+

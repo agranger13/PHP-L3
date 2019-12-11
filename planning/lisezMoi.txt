@@ -1,1 +1,0 @@
-Aller sur /createDB.php pour initialiser la bd MongoDB.
