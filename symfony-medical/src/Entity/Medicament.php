@@ -33,6 +33,11 @@ class Medicament
      */
     private $lignePrescriptives;
 
+    public function __toString()
+    {
+        return $this->denomination;
+    }
+
     public function __construct()
     {
         $this->lignePrescriptives = new ArrayCollection();

@@ -3,10 +3,8 @@
         
         {% for a in list %}
         <tr>
-            <td>{{ a.nom }}</td>
-            <td>{{ a.prenom }}</td>
-            <td>{{ a.dateNaissance|date('d/m/Y') }}</td>
-            <td>{{ a.NumSS }}</td>
+            <td>{{ a.denomination }}</td>
+            <td>{{ a.conditionnement }}</td>
         </tr>
         {% else %}<tr>
             <td>Aucun {{ label }} n'a été trouvé.</td>

@@ -43,6 +43,11 @@ class Medecin
      */
     private $ordonnance;
 
+    public function __toString()
+    {
+        return $this->nom;
+    }
+    
     public function __construct()
     {
         $this->consultations = new ArrayCollection();

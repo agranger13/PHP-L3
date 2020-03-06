@@ -1,0 +1,35 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}LignePrescriptive index{% endblock %}
+
+{% block body %}
+    <h1>LignePrescriptive index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Posologie</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for ligne_prescriptive in ligne_prescriptives %}
+            <tr>
+                <td>{{ ligne_prescriptive.id }}</td>
+                <td>{{ ligne_prescriptive.posologie }}</td>
+                <td>
+                    <a href="{{ path('ligne_prescriptive_show', {'id': ligne_prescriptive.id}) }}">show</a>
+                    <a href="{{ path('ligne_prescriptive_edit', {'id': ligne_prescriptive.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="3">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('ligne_prescriptive_new') }}">Create new</a>
+{% endblock %}

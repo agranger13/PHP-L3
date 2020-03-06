@@ -43,6 +43,11 @@ class Ordonnance
      */
     private $lignePrescriptives;
 
+    public function __toString()
+    {
+        return $this->numeroOrdre;
+    }
+
     public function __construct()
     {
         $this->lignePrescriptives = new ArrayCollection();

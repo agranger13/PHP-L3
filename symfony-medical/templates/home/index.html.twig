@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}LignePrescriptive index{% endblock %}
+
+{% block body %}
+    <h1>Accueil</h1>
+    <a href="{{ path('consultations_list') }}">Consultations</a>
+    <a href="{{ path('patient_list') }}">Patients</a>
+    <a href="{{ path('medecins_list') }}">Médecins</a>
+    <a href="{{ path('medicaments_list') }}">Médicaments</a>
+{% endblock %}
